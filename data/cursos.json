@@ -1,0 +1,56 @@
+[
+  {
+    "id": "PY-101",
+    "nombre": "Python para análisis de datos",
+    "descripcion": "Fundamentos de Python, pandas y visualización para preparar, limpiar y comunicar datos académicos y de negocio.",
+    "modalidad": "virtual",
+    "duracion": "8 semanas",
+    "costo": 180000,
+    "requisitos": "Ninguno. Se recomienda haber usado una hoja de cálculo."
+  },
+  {
+    "id": "WEB-210",
+    "nombre": "Desarrollo web con HTML, CSS y JavaScript",
+    "descripcion": "Construye páginas responsivas y componentes interactivos desde cero, con despliegue de un portafolio estático.",
+    "modalidad": "virtual",
+    "duracion": "10 semanas",
+    "costo": 220000,
+    "requisitos": "Manejo básico de archivos y un editor de código."
+  },
+  {
+    "id": "DB-120",
+    "nombre": "Bases de datos SQL aplicadas",
+    "descripcion": "Modelado relacional, consultas, joins e integridad referencial sobre un caso de matrícula universitaria.",
+    "modalidad": "híbrida",
+    "duracion": "6 semanas",
+    "costo": 160000,
+    "requisitos": "Lógica de programación básica."
+  },
+  {
+    "id": "IA-240",
+    "nombre": "Introducción a la inteligencia artificial generativa",
+    "descripcion": "Prompts, límites de los modelos, ética y automatización de tareas de estudio con herramientas locales y en la nube.",
+    "modalidad": "virtual",
+    "duracion": "5 semanas",
+    "costo": 250000,
+    "requisitos": "Pensamiento crítico y lectura en inglés técnico básico."
+  },
+  {
+    "id": "UX-150",
+    "nombre": "Diseño de experiencia de usuario",
+    "descripcion": "Investigación rápida, flujos, wireframes y pruebas con usuarios para mejorar un servicio digital académico.",
+    "modalidad": "virtual",
+    "duracion": "7 semanas",
+    "costo": 190000,
+    "requisitos": "Ninguno. Interés por productos digitales."
+  },
+  {
+    "id": "DEVOPS-260",
+    "nombre": "Automatización de flujos con Git y CI",
+    "descripcion": "Control de versiones, ramas, revisiones y un pipeline mínimo para probar y publicar un proyecto de curso.",
+    "modalidad": "virtual",
+    "duracion": "6 semanas",
+    "costo": 210000,
+    "requisitos": "Haber programado en cualquier lenguaje y tener cuenta en GitHub."
+  }
+]
