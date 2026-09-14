@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Agente de asesoría académica",
+    "quality_profile": "showcase",
+    "output": "arquitectura.html",
+    "views": [
+      {
+        "id": "chat-path",
+        "label": "Chat en consola",
+        "focus": ["estudiante", "consola", "orquestador", "agente", "ollama"],
+        "note": "Un turno: input, historial completo y granite4.2 en GPU."
+      },
+      {
+        "id": "catalog-load",
+        "label": "Oferta remota",
+        "focus": ["orquestador", "github"],
+        "note": "Al arrancar, requests descarga cursos.json desde GitHub."
+      },
+      {
+        "id": "enroll-mail",
+        "label": "Inscripción",
+        "focus": ["agente", "email", "smtp"],
+        "note": "JSON nativo interceptado; smtplib envía el detalle del curso."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "estudiante",
+      "type": "external",
+      "label": "Estudiante",
+      "sublabel": "chat",
+      "pos": [48, 310],
+      "size": [140, 64]
+    },
+    {
+      "id": "consola",
+      "type": "frontend",
+      "label": "Consola",
+      "sublabel": "Typer + Rich",
+      "pos": [310, 310],
+      "size": [140, 64]
+    },
+    {
+      "id": "orquestador",
+      "type": "backend",
+      "label": "Orquestador",
+      "sublabel": "main.py",
+      "pos": [572, 310],
+      "size": [140, 64]
+    },
+    {
+      "id": "agente",
+      "type": "backend",
+      "label": "Agente y memoria",
+      "sublabel": "lista Python",
+      "pos": [834, 310],
+      "size": [150, 64]
+    },
+    {
+      "id": "ollama",
+      "type": "external",
+      "label": "Ollama",
+      "sublabel": "granite4.2 GPU",
+      "pos": [1106, 310],
+      "size": [150, 64]
+    },
+    {
+      "id": "github",
+      "type": "cloud",
+      "label": "GitHub",
+      "sublabel": "cursos.json raw",
+      "pos": [572, 90],
+      "size": [140, 64]
+    },
+    {
+      "id": "email",
+      "type": "backend",
+      "label": "EmailService",
+      "sublabel": "smtplib",
+      "pos": [834, 530],
+      "size": [150, 64]
+    },
+    {
+      "id": "smtp",
+      "type": "external",
+      "label": "SMTP",
+      "sublabel": "inscripción",
+      "pos": [1106, 530],
+      "size": [150, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Proceso local uv",
+      "wraps": ["consola", "orquestador", "agente", "email"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-chat",
+      "from": "estudiante",
+      "to": "consola",
+      "label": "input() / print()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-loop",
+      "from": "consola",
+      "to": "orquestador",
+      "label": "while True"
+    },
+    {
+      "id": "turn-handoff",
+      "from": "orquestador",
+      "to": "agente",
+      "label": "turno + historial"
+    },
+    {
+      "id": "llm-chat",
+      "from": "agente",
+      "to": "ollama",
+      "label": "POST /api/chat",
+      "variant": "emphasis"
+    },
+    {
+      "id": "load-catalog",
+      "from": "orquestador",
+      "to": "github",
+      "label": "GET cursos.json",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "intercept-json",
+      "from": "agente",
+      "to": "email",
+      "label": "JSON inscripción",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "send-mail",
+      "from": "email",
+      "to": "smtp",
+      "label": "smtplib",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Chat",
+      "items": [
+        "Typer arranca el bucle; Rich solo cambia el tema visual",
+        "Cada turno hace append() y reenvía toda la lista a Ollama"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Datos",
+      "items": [
+        "La oferta vive en GitHub; requests la inyecta al system prompt",
+        "Sin LangChain: control, memoria y acciones son POO nativa"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Acción",
+      "items": [
+        "Interés real de inscripción → JSON con correo y curso_id",
+        "Python intercepta y smtplib envía el detalle del curso"
+      ]
+    }
+  ]
+}
