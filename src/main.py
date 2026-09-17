@@ -110,9 +110,13 @@ class ConsolaChat:
                 print("Hasta luego.")
                 break
             try:
-                respuesta = agente.responder(texto)
+                with self.console.status(
+                    "[muted]modelo generando…[/muted]",
+                    spinner="line",
+                ):
+                    respuesta = agente.responder(texto)
             except Exception as exc:  # noqa: BLE001 — el bucle no debe caerse en la demo
-                self.imprimir_error(f"No pude hablar con Ollama: {exc}")
+                self.imprimir_error(str(exc))
                 continue
             accion = agente.extraer_accion(respuesta)
             if accion is None:
@@ -202,14 +206,27 @@ def chat(
     agente = AgenteAsesor(
         catalogo_texto=catalogo.texto_para_prompt(),
         host=os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434"),
-        model=os.getenv("OLLAMA_MODEL", "granite4.2"),
+        model=os.getenv("OLLAMA_MODEL", "openbmb/minicpm5-2b"),
         num_gpu=_entero("OLLAMA_NUM_GPU", -1),
-        num_ctx=_entero("OLLAMA_NUM_CTX", 8192),
+        num_ctx=_entero("OLLAMA_NUM_CTX", 4096),
         temperature=_float("OLLAMA_TEMPERATURE", 0.2),
         keep_alive=os.getenv("OLLAMA_KEEP_ALIVE", "30m"),
+        timeout=_entero("OLLAMA_TIMEOUT", 600),
+        num_predict=_entero("OLLAMA_NUM_PREDICT", 384),
+        think=_bool("OLLAMA_THINK", False),
     )
     try:
         agente.comprobar_ollama()
+    except Exception as exc:  # noqa: BLE001
+        consola.imprimir_error(str(exc))
+        raise typer.Exit(code=1) from exc
+
+    try:
+        with consola.console.status(
+            f"[muted]Cargando el modelo en GPU (el primer arranque puede tardar)…[/muted]",
+            spinner="line",
+        ):
+            agente.precargar()
     except Exception as exc:  # noqa: BLE001
         consola.imprimir_error(str(exc))
         raise typer.Exit(code=1) from exc

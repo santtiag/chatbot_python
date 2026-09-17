@@ -10,7 +10,7 @@
         "id": "chat-path",
         "label": "Chat en consola",
         "focus": ["estudiante", "consola", "orquestador", "agente", "ollama"],
-        "note": "Un turno: input, historial completo y granite4.2 en GPU."
+        "note": "Un turno: input, historial completo y el modelo local en GPU."
       },
       {
         "id": "catalog-load",
@@ -63,7 +63,7 @@
       "id": "ollama",
       "type": "external",
       "label": "Ollama",
-      "sublabel": "granite4.2 GPU",
+      "sublabel": "modelo local GPU",
       "pos": [1106, 310],
       "size": [150, 64]
     },

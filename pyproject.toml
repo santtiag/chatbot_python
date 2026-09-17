@@ -1,7 +1,7 @@
 [project]
 name = "asesor-academico"
 version = "0.1.0"
-description = "Agente de asesoría académica en consola (Ollama granite4.2)"
+description = "Agente de asesoría académica en consola (Ollama)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
