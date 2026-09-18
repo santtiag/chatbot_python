@@ -52,5 +52,14 @@
     "duracion": "6 semanas",
     "costo": 210000,
     "requisitos": "Haber programado en cualquier lenguaje y tener cuenta en GitHub."
+  },
+  {
+    "id": "WEB-PHP",
+    "nombre": "Curso de desarrollo web con PHP",
+    "descripcion": "Desarrollo web con php",
+    "modalidad": "virtual",
+    "duracion": "6 semanas",
+    "costo": 210000,
+    "requisitos": "Haber programado en cualquier lenguaje y tener cuenta en GitHub."
   }
 ]
